@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTTIS - Gateway to the Best Events</title>
+    <style>
+        /* CSS - Internal Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        header p {
+            font-size: 18px;
+        }
+        nav ul {
+            background-color: #444;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GTTIS</h1>
+        <p>Gateway to the Best Events Around You</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#tech-stack">Tech Stack</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <h2>About GTTIS</h2>
+        <p>GTTIS is an innovative app that helps users discover and explore events based on their interests. Whether you're a tech enthusiast, comedy lover, or business professional, GTTIS connects you to events happening nearby, making it easier to fuel your passions and expand your horizons.</p>
+    </section>
+
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Personalized Recommendations</li>
+            <li>Event Categorization</li>
+            <li>Geolocation Services</li>
+            <li>Event Promotion for Organizers</li>
+        </ul>
+    </section>
+
+    <section id="tech-stack">
+        <h2>Tech Stack</h2>
+        <ul>
+            <li><strong>Frontend:</strong> React Native, Expo</li>
+            <li><strong>Backend:</strong> Node.js, Express.js, Firebase</li>
+            <li><strong>APIs:</strong> Google Maps API, Eventbrite API (optional)</li>
+        </ul>
+    </section>
+
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:info@gttis.com">info@gttis.com</a></p>
+        <p>GitHub: <a href="https://github.com/yourusername/gttis" target="_blank">github.com/yourusername/gttis</a></p>
+    </footer>
+
+    <script>
+        // JavaScript - Interactivity
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
