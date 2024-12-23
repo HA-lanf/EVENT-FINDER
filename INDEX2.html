@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventFinder - Your Personalized Event Hub</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .event-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .event-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-card h3 {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .event-card p {
+            color: #555;
+            font-size: 1em;
+        }
+
+        .filter-section {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .filter-section select,
+        .filter-section button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>EventFinder</h1>
+        <p>Your Personalized Event Hub</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#filter">Filter</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about" class="container">
+        <h2>About EventFinder</h2>
+        <p>Finding relevant events can be challenging. EventFinder solves this problem by providing personalized recommendations based on your interests and location. Whether you're a busy professional, a tech enthusiast, or a business person, EventFinder helps you stay updated with events that matter to you.</p>
+    </section>
+
+    <section id="filter" class="container filter-section">
+        <h2>Filter Events</h2>
+        <p>Select your preferences to find the most relevant events for you:</p>
+        <label for="category">Event Category:</label>
+        <select id="category">
+            <option value="tech">Technology</option>
+            <option value="business">Business</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="networking">Networking</option>
+        </select>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" placeholder="Enter your city or enable geolocation" />
+
+        <button onclick="filterEvents()">Find Events</button>
+    </section>
+
+    <section id="events" class="container">
+        <h2>Upcoming Events</h2>
+        <div id="event-list" class="event-list">
+            <!-- Events will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:info@eventfinder.com">info@eventfinder.com</a></p>
+        <p>GitHub: <a href="https://github.com/yourusername/eventfinder" target="_blank">github.com/yourusername/eventfinder</a></p>
+    </footer>
+
+    <script>
+        // JavaScript for Event Filtering and Dynamic Content
+        const events = [
+            { id: 1, title: 'Tech Conference 2024', category: 'tech', location: 'New York', description: 'The latest innovations in AI and robotics.' },
+            { id: 2, title: 'Business Growth Seminar', category: 'business', location: 'San Francisco', description: 'Learn strategies to grow your business.' },
+            { id: 3, title: 'Startup Networking Event', category: 'networking', location: 'Los Angeles', description: 'Connect with other startup founders.' },
+            { id: 4, title: 'Tech Talk: AI Future', category: 'tech', location: 'Chicago', description: 'A deep dive into the future of AI and its applications.' },
+            { id: 5, title: 'Wellness Retreat', category: 'lifestyle', location: 'Miami', description: 'A wellness retreat to relax and rejuvenate.' },
+            { id: 6, title: 'Business Leadership Forum', category: 'business', location: 'Boston', description: 'Learn leadership skills from top CEOs.' }
+        ];
+
+        function filterEvents() {
+            const category = document.getElementById('category').value;
+            const location = document.getElementById('location').value.toLowerCase();
+
+            const filteredEvents = events.filter(event => 
+                (event.category === category || category === 'all') &&
+                (event.location.toLowerCase().includes(location) || location === '')
+            );
+
+            displayEvents(filteredEvents);
+        }
+
+        function displayEvents(events) {
+            const eventList = document.getElementById('event-list');
+            eventList.innerHTML = '';
+
+            if (events.length === 0) {
+                eventList.innerHTML = '<p>No events found matching your criteria.</p>';
+            } else {
+                events.forEach(event => {
+                    const eventCard = document.createElement('div');
+                    eventCard.classList.add('event-card');
+                    eventCard.innerHTML = `
+                        <h3>${event.title}</h3>
+                        <p><strong>Category:</strong> ${event.category}</p>
+                        <p><strong>Location:</strong> ${event.location}</p>
+                        <p>${event.description}</p>
+                    `;
+                    eventList.appendChild(eventCard);
+                });
+            }
+        }
+
+        // Load all events initially
+        displayEvents(events);
+    </script>
+
+</body>
+</html>
